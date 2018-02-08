@@ -21,12 +21,12 @@ public abstract class MuseumSite {
   }
 
   public void enter() {
-    // to be implemented
+    this.occupancy += 1;
   }
 
   public void exit() {
     assert occupancy > 0;
-    // to be implemented
+    this.occupancy -= 1;
   }
 
   public void addExitTurnstile(Turnstile turnstile) {

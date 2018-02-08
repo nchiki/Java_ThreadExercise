@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class Museum {
+public class  Museum {
 
   private final Entrance entrance;
   private final Exit exit;
@@ -22,13 +22,13 @@ public class Museum {
     // number of visitors
     final Museum museum = buildSimpleMuseum(); // buildLoopyMuseum();
 
-
     List<Thread> visitors = new ArrayList<>();
     IntStream.range(0, numberOfVisitors).sequential().forEach(i -> {
       Thread visitorThread =
-              new Thread(new Visitor("Vis" + i, museum.getEntrance()));
+          new Thread(new Visitor("Vis" + i, museum.getEntrance()));
       visitors.add(visitorThread);
       visitorThread.start();
+      visitorThread.run();
     });
 
     // wait for them to complete their visit
@@ -50,15 +50,20 @@ public class Museum {
     });
   }
 
+
   public static Museum buildSimpleMuseum() {
-    // to be implemented
-    return null;
+    Set<MuseumSite> sites = new HashSet<>();
+    sites.add(new ExhibitionRoom("Exhibitionroom", 10));
+    return new Museum(new Entrance(), new Exit(), sites);
   }
 
   public static Museum buildLoopyMuseum() {
-    // to be implemented
-    return null;
+    Set<MuseumSite> sites = new HashSet<>();
+    sites.add(new ExhibitionRoom("Whales Exhibition Room", 10));
+    sites.add(new ExhibitionRoom("VenomKillerAndCUreRoom", 10));
+    return new Museum(new Entrance(), new Exit(), sites);
   }
+
 
   public Entrance getEntrance() {
     return entrance;

@@ -1,16 +1,30 @@
 package museumvisit;
 
+import java.util.List;
+
 public class ExhibitionRoom extends MuseumSite {
+
+  int capacity;
 
   public ExhibitionRoom(String name, int capacity) {
     super(name);
     assert capacity > 0;
-
-    // complete here if needed
+    this.capacity = capacity;
   }
 
   public int getCapacity() {
-    return -1;
+    return this.capacity;
   }
 
+  @Override
+  public void enter(){
+    if(this.getOccupancy() < this.getCapacity()) {
+      this.occupancy += 1;
+    }
+  }
+
+  @Override
+  boolean hasAvailability() {
+    return this.getCapacity() > getOccupancy();
+  }
 }

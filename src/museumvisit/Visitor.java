@@ -27,6 +27,7 @@ public class Visitor implements Runnable {
     }
   }
 
+
   private boolean thereAreMoreSitesToVisit() {
     return !currentRoom.getExitTurnstiles().isEmpty();
   }
@@ -77,3 +78,4 @@ public class Visitor implements Runnable {
     return Objects.hash(getClass(), name);
   }
 }
+
