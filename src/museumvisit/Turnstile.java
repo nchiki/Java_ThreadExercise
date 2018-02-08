@@ -14,15 +14,24 @@ public class Turnstile {
     // complete here if needed
   }
 
-  public Optional<MuseumSite> passToNextRoom() {
-    if(this.destinationRoom.hasAvailability()){
-      this.originRoom.exit();
-      this.destinationRoom.enter();
-      return Optional.of(this.destinationRoom);
-    } else{
-      return Optional.empty();
+
+
+
+      public Optional<MuseumSite> passToNextRoom(){
+        synchronized (){
+          synchronized (){
+        if(this.destinationRoom.hasAvailability()){
+          this.originRoom.exit();
+          this.destinationRoom.enter();
+          return Optional.of(this.destinationRoom);
+        } else{
+          return Optional.empty();
+        }
+      }
     }
   }
+
+
 
   public MuseumSite getOriginRoom() {
     return originRoom;
