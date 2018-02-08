@@ -1,6 +1,9 @@
 package museumvisit;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class Museum {
 
@@ -19,7 +22,14 @@ public class Museum {
     // number of visitors
     final Museum museum = buildSimpleMuseum(); // buildLoopyMuseum();
 
-    // create the threads for the visitors and get them moving
+
+    List<Thread> visitors = new ArrayList<>();
+    IntStream.range(0, numberOfVisitors).sequential().forEach(i -> {
+      Thread visitorThread =
+              new Thread(new Visitor("Vis" + i, museum.getEntrance()));
+      visitors.add(visitorThread);
+      visitorThread.start();
+    });
 
     // wait for them to complete their visit
 

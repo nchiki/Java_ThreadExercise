@@ -3,6 +3,7 @@ package museumvisit;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Visitor implements Runnable {
 
@@ -17,16 +18,12 @@ public class Visitor implements Runnable {
   public void run() {
     while (thereAreMoreSitesToVisit()) {
       simulateVisitToCurrentRoom();
-
-      /*
-       * 1. pick a random turnstile
-       * 2. try to go through it.
-       * 2a) if successful (i.e., passToNextRoom() returned a MuseumSite),
-       * the returned site will be the next currentRoom to be visited
-       * 2b) if unsuccessful (i.e., passToNextRoom() returned an empty Optional),
-       * waitSomeTimeBeforeRetrying(), and then retry from step 1.
-       */
-
+      Turnstile randomT = this.pickRandomTurnstile();
+      if(randomT.passToNextRoom().equals(Optional.empty())){
+        this.waitSomeTimeBeforeRetrying();
+      } else {
+        this.currentRoom = randomT.getDestinationRoom();
+      }
     }
   }
 

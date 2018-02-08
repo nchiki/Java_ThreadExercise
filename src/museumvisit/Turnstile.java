@@ -15,8 +15,13 @@ public class Turnstile {
   }
 
   public Optional<MuseumSite> passToNextRoom() {
-    // to be implemneted
-    return Optional.empty();
+    if(this.destinationRoom.hasAvailability()){
+      this.originRoom.exit();
+      this.destinationRoom.enter();
+      return Optional.of(this.destinationRoom);
+    } else{
+      return Optional.empty();
+    }
   }
 
   public MuseumSite getOriginRoom() {
