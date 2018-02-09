@@ -1,6 +1,7 @@
 package museumvisit;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -28,7 +29,6 @@ public class  Museum {
           new Thread(new Visitor("Vis" + i, museum.getEntrance()));
       visitors.add(visitorThread);
       visitorThread.start();
-      visitorThread.run();
     });
 
     // wait for them to complete their visit
