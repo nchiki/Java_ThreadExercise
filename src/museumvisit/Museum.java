@@ -21,7 +21,8 @@ public class  Museum {
   public static void main(String[] args) {
     final int numberOfVisitors = 100; // Your solution has to work with any
     // number of visitors
-    final Museum museum = buildSimpleMuseum(); // buildLoopyMuseum();
+    final Museum museum = buildSimpleMuseum();
+    //buildLoopyMuseum();
 
     List<Thread> visitors = new ArrayList<>();
     IntStream.range(0, numberOfVisitors).sequential().forEach(i -> {
@@ -33,6 +34,13 @@ public class  Museum {
 
     // wait for them to complete their visit
 
+      visitors.forEach(v -> {
+          try {
+              v.join();
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+      });
     // Checking no one is left behind
     if (museum.getExit().getOccupancy() == numberOfVisitors) {
       System.out.println("\nAll the visitors reached the exit\n");
@@ -52,16 +60,29 @@ public class  Museum {
 
 
   public static Museum buildSimpleMuseum() {
+    Entrance ent = new Entrance();
+    Exit ex = new Exit();
+    ExhibitionRoom mainRoom = new ExhibitionRoom("Exhibition Room", 10);
+    Turnstile t1 = new Turnstile(ent, mainRoom);
+    Turnstile t2 = new Turnstile(mainRoom, ex);
     Set<MuseumSite> sites = new HashSet<>();
-    sites.add(new ExhibitionRoom("Exhibitionroom", 10));
-    return new Museum(new Entrance(), new Exit(), sites);
+    sites.add(mainRoom);
+    return new Museum(ent, ex, sites);
   }
 
   public static Museum buildLoopyMuseum() {
-    Set<MuseumSite> sites = new HashSet<>();
-    sites.add(new ExhibitionRoom("Whales Exhibition Room", 10));
-    sites.add(new ExhibitionRoom("VenomKillerAndCUreRoom", 10));
-    return new Museum(new Entrance(), new Exit(), sites);
+  Entrance ent = new Entrance();
+  Exit ex = new Exit();
+  ExhibitionRoom VKCroom = new ExhibitionRoom("VenomKillerandCureRoom", 10);
+  ExhibitionRoom WERoom = new ExhibitionRoom("WhalesExhibitionRoom", 10);
+  Turnstile t1 = new Turnstile(ent, VKCroom);
+  Turnstile t2 = new Turnstile(VKCroom, ex);
+  Turnstile t3 = new Turnstile(VKCroom, WERoom);
+  Turnstile t4 = new Turnstile(WERoom, VKCroom);
+  Set<MuseumSite> sites = new HashSet<>();
+    sites.add(VKCroom);
+  sites.add(WERoom);
+    return new Museum(ent, ex, sites);
   }
 
 

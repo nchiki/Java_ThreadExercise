@@ -6,30 +6,24 @@ public class Turnstile {
 
   private final MuseumSite originRoom;
   private final MuseumSite destinationRoom;
-  private final MuseumSite r1 = getDestinationRoom();
-  private final MuseumSite r2 = getOriginRoom();
 
   public Turnstile(MuseumSite originRoom, MuseumSite destinationRoom) {
     assert !originRoom.equals(destinationRoom);
     this.originRoom = originRoom;
     this.destinationRoom = destinationRoom;
-    this.originRoom.exitTurnstiles.add(this);  }
+    this.originRoom.addExitTurnstile(this);
+  }
 
 
   public Optional<MuseumSite> passToNextRoom(){
-    synchronized (this.destinationRoom){
-      synchronized (this.originRoom){
-        if(this.destinationRoom.hasAvailability()){
-          this.originRoom.exit();
-          this.destinationRoom.enter();
-          return Optional.of(this.destinationRoom);
-        } else{
-          return Optional.empty();
-        }
-      }
-    }
-
-  }
+              if(this.destinationRoom.hasAvailability()){
+                  this.originRoom.exit();
+                  this.destinationRoom.enter();
+                  return Optional.of(getDestinationRoom());
+              } else{
+                  return Optional.empty();
+              }
+          }
 
 
   public MuseumSite getOriginRoom() {

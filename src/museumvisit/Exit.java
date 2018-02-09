@@ -8,6 +8,7 @@ public Exit() {
     super("Exit");
     }
 
+@Override
 public List<Turnstile> getExitTurnstiles(){
     return new ArrayList<Turnstile>();
     }

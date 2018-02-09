@@ -15,10 +15,11 @@ import org.junit.Test;
 public class MuseumTest {
 
   @Test
-  public void simpleMuseumTopology() {
-    Museum museum = Museum.buildSimpleMuseum();
-    assertTrue(museum.getEntrance() instanceof Entrance);
-    assertTrue(museum.getExit() instanceof Exit);
+    public void simpleMuseumTopology() {
+      Museum museum = Museum.buildSimpleMuseum();
+      assertTrue(museum.getEntrance() instanceof Entrance);
+      assertTrue(museum.getExit() instanceof Exit);
+      museum.getEntrance().enter(); // addition
 
     assertTrue(museum.getEntrance().getExitTurnstiles().size() == 1);
     assertTrue(museum.getEntrance().getExitTurnstiles().get(0)
@@ -39,6 +40,7 @@ public class MuseumTest {
     Museum museum = Museum.buildLoopyMuseum();
     assertTrue(museum.getEntrance() instanceof Entrance);
     assertTrue(museum.getExit() instanceof Exit);
+    museum.getEntrance().enter(); // addition
 
     assertTrue(museum.getEntrance().getExitTurnstiles().size() == 1);
     assertTrue(museum.getEntrance().getExitTurnstiles().get(0)
@@ -107,6 +109,7 @@ public class MuseumTest {
       try {
         v.join();
       } catch (InterruptedException e) {
+        e.printStackTrace();
       }
     });
 

@@ -1,5 +1,6 @@
 package museumvisit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExhibitionRoom extends MuseumSite {
@@ -10,17 +11,11 @@ public class ExhibitionRoom extends MuseumSite {
     super(name);
     assert capacity > 0;
     this.capacity = capacity;
+    this.exitTurnstiles = new ArrayList<>();
   }
 
   public int getCapacity() {
     return this.capacity;
-  }
-
-  @Override
-  public void enter(){
-    if(this.getOccupancy() < this.getCapacity()) {
-      this.occupancy += 1;
-    }
   }
 
   @Override

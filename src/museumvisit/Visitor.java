@@ -13,9 +13,10 @@ public class Visitor implements Runnable {
   public Visitor(String name, MuseumSite initialRoom) {
     this.name = name;
     this.currentRoom = initialRoom;
+    initialRoom.enter();
   }
 
-  public void run() {
+  /*public void run() {
     while (thereAreMoreSitesToVisit()) {
       simulateVisitToCurrentRoom();
       Turnstile randomT = this.pickRandomTurnstile();
@@ -23,6 +24,38 @@ public class Visitor implements Runnable {
         this.waitSomeTimeBeforeRetrying();
       } else {
         this.currentRoom = randomT.getDestinationRoom();
+      }
+    }
+  }
+*/
+
+  public void run() {
+    while (thereAreMoreSitesToVisit()) {
+      Turnstile turnstile = pickRandomTurnstile();
+
+      MuseumSite orig = turnstile.getOriginRoom();
+      MuseumSite dest = turnstile.getDestinationRoom();
+
+      MuseumSite lockFirst, lockSecond;
+      if (orig.hashCode() < dest.hashCode()) {
+        lockFirst = orig;
+        lockSecond = dest;
+      } else {
+        lockFirst = dest;
+        lockSecond = orig;
+      }
+
+      Optional<MuseumSite> next;
+      synchronized (lockFirst) {
+        synchronized (lockSecond) {
+          next = turnstile.passToNextRoom();
+        }
+      }
+
+      if (next.isPresent()) {
+        currentRoom = next.get();
+      } else {
+        waitSomeTimeBeforeRetrying();
       }
     }
   }
