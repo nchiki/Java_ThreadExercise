@@ -17,10 +17,12 @@ public abstract class MuseumSite {
   }
 
   boolean hasAvailability() {
+
     return true;
   }
 
   public void enter() {
+
     this.occupancy += 1;
   }
 

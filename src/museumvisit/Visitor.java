@@ -13,21 +13,7 @@ public class Visitor implements Runnable {
   public Visitor(String name, MuseumSite initialRoom) {
     this.name = name;
     this.currentRoom = initialRoom;
-    initialRoom.enter();
   }
-
-  /*public void run() {
-    while (thereAreMoreSitesToVisit()) {
-      simulateVisitToCurrentRoom();
-      Turnstile randomT = this.pickRandomTurnstile();
-      if(randomT.passToNextRoom().equals(Optional.empty())){
-        this.waitSomeTimeBeforeRetrying();
-      } else {
-        this.currentRoom = randomT.getDestinationRoom();
-      }
-    }
-  }
-*/
 
   public void run() {
     while (thereAreMoreSitesToVisit()) {

@@ -41,6 +41,7 @@ public class  Museum {
               e.printStackTrace();
           }
       });
+
     // Checking no one is left behind
     if (museum.getExit().getOccupancy() == numberOfVisitors) {
       System.out.println("\nAll the visitors reached the exit\n");
@@ -63,8 +64,8 @@ public class  Museum {
     Entrance ent = new Entrance();
     Exit ex = new Exit();
     ExhibitionRoom mainRoom = new ExhibitionRoom("Exhibition Room", 10);
-    Turnstile t1 = new Turnstile(ent, mainRoom);
-    Turnstile t2 = new Turnstile(mainRoom, ex);
+    Turnstile tEnt = new Turnstile(ent, mainRoom);
+    Turnstile tmainRoom = new Turnstile(mainRoom, ex);
     Set<MuseumSite> sites = new HashSet<>();
     sites.add(mainRoom);
     return new Museum(ent, ex, sites);
@@ -75,10 +76,10 @@ public class  Museum {
   Exit ex = new Exit();
   ExhibitionRoom VKCroom = new ExhibitionRoom("VenomKillerandCureRoom", 10);
   ExhibitionRoom WERoom = new ExhibitionRoom("WhalesExhibitionRoom", 10);
-  Turnstile t1 = new Turnstile(ent, VKCroom);
-  Turnstile t2 = new Turnstile(VKCroom, ex);
-  Turnstile t3 = new Turnstile(VKCroom, WERoom);
-  Turnstile t4 = new Turnstile(WERoom, VKCroom);
+  Turnstile tEnt = new Turnstile(ent, VKCroom);
+  Turnstile tVKCroom1 = new Turnstile(VKCroom, ex);
+  Turnstile tVCKroom2 = new Turnstile(VKCroom, WERoom);
+  Turnstile tWERoom = new Turnstile(WERoom, VKCroom);
   Set<MuseumSite> sites = new HashSet<>();
     sites.add(VKCroom);
   sites.add(WERoom);
